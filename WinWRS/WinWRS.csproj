@@ -98,9 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Business\ComputerExtensions.cs" />
     <Compile Include="Business\MACAddress.cs" />
     <Compile Include="Business\ShutdownHelper.cs" />
-    <Compile Include="Business\ComputerActions.cs" />
     <Compile Include="Controllers\WinWRSApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

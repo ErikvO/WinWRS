@@ -54,34 +54,34 @@ namespace ErikvO.WinWRS.Controllers
 
 		public void Wake(Computer computer)
 		{
-			new ComputerActions(computer).Wake();
+			computer.Wake();
 		}
 
 		public int Reboot(Computer computer)
 		{
-			return new ComputerActions(computer).Reboot();
+			return computer.Reboot();
 		}
 
 		public int Shutdown(Computer computer)
 		{
-			return new ComputerActions(computer).Shutdown();
+			return computer.Shutdown();
 		}
 
 		[AcceptVerbs("POST")]
 		public Computer FillByName(Computer computer)
 		{
-			return new ComputerActions(computer).FillByName();
+			return computer.FillByName();
 		}
 
 		[AcceptVerbs("POST")]
 		public Computer FillByMac(Computer computer)
 		{
-			return new ComputerActions(computer).FillByMac();
+			return computer.FillByMac();
 		}
 
 		public Computer FillByIp(Computer computer)
 		{
-			return new ComputerActions(computer).FillByIp();
+			return computer.FillByIp();
 		}
 	}
 }
