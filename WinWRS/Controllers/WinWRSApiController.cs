@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web;
 using System.Web.Http;
-using ErikvO.WinWRS.Business;
+using ErikvO.WinWRS.ExtensionMethods;
 using ErikvO.WinWRS.Models;
 using LiteDB;
 
@@ -13,12 +13,14 @@ namespace ErikvO.WinWRS.Controllers
 
 		public IEnumerable<Computer> Get()
 		{
+			IEnumerable<Computer> computers;
 			using (var db = new LiteDatabase(_liteDbPath))
 			{
-				return db
+				computers = db
 					.GetCollection<Computer>("Computers")
 					.FindAll();
 			}
+			return computers;
 		}
 
 		public Computer Add(Computer computer)
@@ -27,6 +29,7 @@ namespace ErikvO.WinWRS.Controllers
 			{
 				var computers = db.GetCollection<Computer>("Computers");
 				computers.Insert(computer);
+				computer.Password = "";
 			}
 			return computer;
 		}
@@ -37,6 +40,10 @@ namespace ErikvO.WinWRS.Controllers
 			{
 				var computers = db.GetCollection<Computer>("Computers");
 				computers.EnsureIndex(computer => computer.Id, true);
+
+				if (computerToUpdate.Password == null || computerToUpdate.Password == "")
+					computerToUpdate.EncryptedPassword = computers.FindById(computerToUpdate.Id).EncryptedPassword;
+
 				return computers.Upsert(computerToUpdate);
 			}
 		}
@@ -57,14 +64,26 @@ namespace ErikvO.WinWRS.Controllers
 			computer.Wake();
 		}
 
-		public int Reboot(Computer computer)
+		public string Reboot(Computer computerToReboot)
 		{
-			return computer.Reboot();
+			using (var db = new LiteDatabase(_liteDbPath))
+			{
+				var computers = db.GetCollection<Computer>("Computers");
+				computers.EnsureIndex(computer => computer.Id, true);
+
+				return computers.FindById(computerToReboot.Id).Reboot();
+			}
 		}
 
-		public int Shutdown(Computer computer)
+		public string Shutdown(Computer computerToShutdown)
 		{
-			return computer.Shutdown();
+			using (var db = new LiteDatabase(_liteDbPath))
+			{
+				var computers = db.GetCollection<Computer>("Computers");
+				computers.EnsureIndex(computer => computer.Id, true);
+
+				return computers.FindById(computerToShutdown.Id).Shutdown();
+			}
 		}
 
 		[AcceptVerbs("POST")]

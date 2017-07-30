@@ -1,67 +1,85 @@
 ﻿<script type="text/x-jsrender" id="PageTemplate">
-	<table>
-		<thead>
-			<tr>
-				<td>Id</td>
-				<td>Name</td>
-				<td>MAC</td>
-				<td>IP</td>
-				<td>UserName</td>
-				<td>Password</td>
-				<td></td>
-				<td></td>
-			</tr>
-		</thead>
-		<tbody>
-			{^{for Computers}}
-				<tr>
-					<td>{{>Id}}</td>
-					<td><input type="text" id="Name" data-link="{:Name:} disabled{:_actionExecuting}" /></td>
-					<td>{{>MAC}}</td>
-					<td><input type="text" id="IP" data-link="{:IP:} disabled{:_actionExecuting}" /></td>
-					<td><input type="text" id="UserName" data-link="{:UserName:} disabled{:_actionExecuting}" /></td>
-					<td><input type="password" id="Password" data-link="{:Password:} disabled{:_actionExecuting}" /></td>
-					<td><input type="button" id="Update" value="Update" data-link="{on Update} disabled{:_actionExecuting}" /></td>
-					<td><input type="button" id="Remove" value="Remove" data-link="{on Remove} disabled{:_actionExecuting}" /></td>
-					<td><input type="button" id="Wake" value="Wake" data-link="{on Wake} disabled{:_actionExecuting}" /></td>
-					<td><input type="button" id="Reboot" value="Reboot" data-link="{on Reboot} disabled{:_actionExecuting}" /></td>
-					<td><input type="button" id="Shutdown" value="Shutdown" data-link="{on Shutdown} disabled{:_actionExecuting}" /></td>
-				</tr>
+	<div class="Main" data-link="class{merge:Editing toggle='Editing'}">
+		<div class="Computers">
+			<table>
+				<thead>
+					<tr>
+						<td>Name</td>
+						<td>MAC</td>
+						<td>IP</td>
+						<td>UserName</td>
+						<td>Shutdown type</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					{^{for Computers}}
+						<tr>
+							<td>{{>Name}}</td>
+							<td>{{>MAC}}</td>
+							<td>{{>IP}}</td>
+							<td>{{>UserName}}</td>
+							<td>{{>~WinWRS.ShutdownType[ShutdownType]}}</td>
+							<td><input type="button" class="Edit" value="Edit" data-link="{on Edit} disabled{:_actionExecuting}" /></td>
+							<td><input type="button" class="Remove" value="Remove" data-link="{on Remove} disabled{:_actionExecuting}" /></td>
+							<td><input type="button" class="Wake" value="Wake" data-link="{on Wake} disabled{:_actionExecuting}" /></td>
+							<td><input type="button" class="Reboot" value="Reboot" data-link="{on Reboot} disabled{:_actionExecuting}" /></td>
+							<td><input type="button" class="Shutdown" value="Shutdown" data-link="{on Shutdown} disabled{:_actionExecuting}" /></td>
+						</tr>
+					{{/for}}
+				</tbody>
+			</table>
+			<input type="button" id="AddNew" value="Add" data-link="{on AddNew}" />
+		</div>
+		<div class="EditedComputer">
+			{^{for EditedComputer}}
+				<table>
+					<tbody>			
+						<tr>
+							<td>Name</td>
+							<td><input type="text" id="EditedName" data-link="{:Name:}" /></td>
+							<td><input type="button" id="FillByName" value="Fill by Name" data-link="{on FillByName}" /></td>
+						</tr>
+						<tr>
+							<td>MAC</td>
+							<td><input type="text" id="EditedMAC" data-link="{:MAC:}" /></td>
+							<td><input type="button" id="FillByMac" value="Fill by MAC" data-link="{on FillByMac}" /></td>
+						</tr>
+						<tr>
+							<td>IP</td>
+							<td><input type="text" id="EditedIP" data-link="{:IP:}" /></td>
+							<td><input type="button" id="FillByIp" value="Fill by IP" data-link="{on FillByIp}" /></td>
+						</tr>
+						<tr>
+							<td>UserName</td>
+							<td><input type="text" id="EditedUserName" data-link="{:UserName:}" /></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Password</td>
+							<td><input type="password" id="EditedPassword" data-link="{:Password:}" /></td>
+							<td></td>
+						</tr>	
+						<tr>
+							<td>Shutdown type</td>
+							<td>
+								<select id="EditedShutdownType" data-link="{:ShutdownType:StringToInt}">
+									{{for _shutdownTypeOptions}}
+										<option value="{{attr:Id}}">{{>Value}}</option>
+									{{/for}}
+								</select>
+							</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
 			{{/for}}
-		</tbody>
-	</table>
-	<table>
-		<tbody>
-			<tr>
-				<td>Name</td>
-				<td><input type="text" id="NewName" data-link="{:NewName:}" /></td>
-				<td><input type="button" id="FillByName" value="Fill by Name" data-link="{on FillByName}" /></td>
-			</tr>
-			<tr>
-				<td>MAC</td>
-				<td><input type="text" id="NewMAC" data-link="{:NewMAC:}" /></td>
-				<td><input type="button" id="FillByMac" value="Fill by MAC" data-link="{on FillByMac}" /></td>
-			</tr>
-			<tr>
-				<td>IP</td>
-				<td><input type="text" id="NewIP" data-link="{:NewIP:}" /></td>
-				<td><input type="button" id="FillByIp" value="Fill by IP" data-link="{on FillByIp}" /></td>
-			</tr>
-			<tr>
-				<td>UserName</td>
-				<td><input type="text" id="NewUserName" data-link="{:NewUserName:}" /></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Password</td>
-				<td><input type="password" id="NewPassword" data-link="{:NewPassword:}" /></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td><input type="button" id="Add" value="Add" data-link="{on Add}" /></td>
-			</tr>
-		</tbody>
-	</table>
+			<input type="button" id="Save" value="Save" data-link="{on Save}" />
+			<input type="button" id="Cancel" value="Cancel" data-link="{on CancelEdit}" />
+		</div>
+	</div>
 </script>

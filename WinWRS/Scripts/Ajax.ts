@@ -1,4 +1,5 @@
-﻿$(document).ajaxError(function (event: JQueryEventObject, xMLHttpRequest: JQueryXHR, ajaxOptions: JQueryAjaxSettings, exception: any) {
+﻿"use strict";
+$(document).ajaxError(function (event: JQueryEventObject, xMLHttpRequest: JQueryXHR, ajaxOptions: JQueryAjaxSettings, exception: any) {
 	alert("An error occured\r\n" + xMLHttpRequest.responseText);
 	console.log(xMLHttpRequest);
 });

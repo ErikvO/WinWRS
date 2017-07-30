@@ -1,12 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
+using ErikvO.WinWRS.Utility;
 
 namespace ErikvO.WinWRS.Business
 {
@@ -49,54 +46,17 @@ namespace ErikvO.WinWRS.Business
 
 		public IPAddress GetIp()
 		{
-			ProcessStartInfo psi = new ProcessStartInfo
-			{
-				FileName = "arp.exe",
-				Arguments = "-a",
-				UseShellExecute = false,
-				RedirectStandardOutput = true,         //Make standard out available in code
-				CreateNoWindow = true,                 //Don't create a window when running the batch file
-			};
+			String macString = ToString();
 
-			//Call the batch file and wait for it to finish.
-			using (Process process = Process.Start(psi))
-			{
-				//Handle StandardOutput and StandardError output in separate threads, so that they don't block the started program when the buffers are full.
-				StringBuilder outputSb = HandleOutput(process.StandardOutput);
+			IPAddress result = new Commandline()
+				.Execute("arp.exe", "-a")
+				.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
+				.Select(line => line.Trim())
+				.Where(line => line.IndexOf(macString, StringComparison.OrdinalIgnoreCase) >= 0)
+				.Select(line => IPAddress.Parse(line.Substring(0, line.IndexOf(" "))))
+				.FirstOrDefault();
 
-				Int32 timeout = 60000;
-				if (!process.WaitForExit(timeout))
-				{
-					process.CloseMainWindow();
-					throw new TimeoutException($"Command: '{psi.FileName} {psi.Arguments}' did not complete within the set timeout ({timeout / 1000} sec.){Environment.NewLine}");
-				}
-
-				String macString = ToString();
-
-				IPAddress result = outputSb
-						.ToString()
-						.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
-						.Select(line => line.Trim())
-						.Where(line => line.IndexOf(macString, StringComparison.OrdinalIgnoreCase) >= 0)
-						.Select(line => IPAddress.Parse(line.Substring(0, line.IndexOf(" "))))
-						.FirstOrDefault();
-
-				return result;
-			}
-		}
-
-		private StringBuilder HandleOutput(StreamReader outputStream)
-		{
-			StringBuilder outputSb = new StringBuilder();
-			ThreadPool.QueueUserWorkItem(state =>
-			{
-				while (!outputStream.EndOfStream)
-				{
-					String line = outputStream.ReadLine();
-					outputSb.AppendLine(line);
-				}
-			});
-			return outputSb;
+			return result;
 		}
 
 		[DllImport("iphlpapi.dll", ExactSpelling = true)]

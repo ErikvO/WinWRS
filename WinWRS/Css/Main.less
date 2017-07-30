@@ -1,0 +1,43 @@
+﻿@computersWidth: 800px;
+@transitionSpeed: 0.3s;
+
+html {
+	box-sizing: border-box;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+.Main {
+	display: flex;
+	position: relative;
+	left: 0;
+	-webkit-transition: left @transitionSpeed ease-in-out;
+	transition: left @transitionSpeed ease-in-out;
+}
+
+.Computers {
+	width: @computersWidth;
+	table {
+		width: 100%;
+	}
+}
+
+.EditedComputer {
+	opacity: 0;
+	-webkit-transition: opacity @transitionSpeed ease-in-out;
+	transition: opacity @transitionSpeed ease-in-out;
+}
+
+.Main.Editing {
+	position: relative;
+	left: -@computersWidth;
+}
+
+.Editing {
+	.EditedComputer {
+		opacity: 1;
+	}
+}

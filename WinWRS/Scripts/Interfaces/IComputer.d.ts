@@ -1,4 +1,5 @@
-﻿declare module ErikvO {
+﻿/// <reference path="../Enums.ts"/>
+declare module ErikvO {
 	export module WinWRS {
 		interface IComputer {
 			Id?: number;
@@ -7,6 +8,7 @@
 			IP?: string;
 			UserName?: string;
 			Password?: string;
+			ShutdownType?: ShutdownType;
 		}
 	}
 }

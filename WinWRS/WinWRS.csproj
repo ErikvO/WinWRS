@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="dotless.Core, Version=1.5.2.0, Culture=neutral, PublicKeyToken=96b446c9e63eae34, processorArchitecture=MSIL">
+      <HintPath>..\packages\dotless.1.5.2\lib\dotless.Core.dll</HintPath>
+    </Reference>
     <Reference Include="LiteDB, Version=3.1.0.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\packages\LiteDB.3.1.1\lib\net35\LiteDB.dll</HintPath>
     </Reference>
@@ -98,18 +101,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Business\ComputerExtensions.cs" />
+    <Compile Include="ExtensionMethods\ComputerExtensions.cs" />
+    <Compile Include="Utility\Encryption.cs" />
     <Compile Include="Business\MACAddress.cs" />
-    <Compile Include="Business\ShutdownHelper.cs" />
+    <Compile Include="Utility\Shutdown\ShutdownBase.cs" />
+    <Compile Include="Utility\Shutdown\ShutdownFactory.cs" />
+    <Compile Include="Utility\Shutdown\ShutdownWindowsSMB.cs" />
+    <Compile Include="Utility\Shutdown\ShutdownWindowsWMI.cs" />
     <Compile Include="Controllers\WinWRSApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Computer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\Commandline.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Commandline\ShutdownWindowsSMB.bat" />
+    <Content Include="Css\Main.less" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -122,7 +132,10 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\Ajax.ts" />
+    <TypeScriptCompile Include="Scripts\Enums.ts" />
     <TypeScriptCompile Include="Scripts\Interfaces\IComputer.d.ts" />
+    <TypeScriptCompile Include="Scripts\PageInit.ts" />
+    <TypeScriptCompile Include="Scripts\SelectOption.ts" />
     <TypeScriptCompile Include="Scripts\TypeScriptDefinitions\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\TypeScriptDefinitions\jsviews.d.ts" />
     <TypeScriptCompile Include="Scripts\ViewModel.ts" />

@@ -3,52 +3,16 @@
 	<head>
 		<title>WinWRS</title>
 		<meta charset="utf-8" />
+		<link href="Css/Main.less" rel="stylesheet"/>
 		<script type="text/javascript" src="Scripts/3rd Party/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="Scripts/3rd Party/jsviews.min.js"></script>
 		<script type="text/javascript" src="Scripts/Ajax.js"></script>
+		<script type="text/javascript" src="Scripts/Enums.js"></script>
+		<script type="text/javascript" src="Scripts/SelectOption.js"></script>
 		<script type="text/javascript" src="Scripts/ViewModel.js"></script>
 		<script type="text/javascript" src="Scripts/Computer.js"></script>
 		<script type="text/template" class="templateScript" data-src="Templates/PageTemplate.html"></script>
-		<script type="text/javascript">
-			$.holdReady(true);
-			document.addEventListener("DOMContentLoaded", loadTemplates, false);
-
-			function loadTemplates() {
-				window.JsViewsTotalScripts = $(".templateScript").length;
-				window.JsViewsScriptsLoaded = 0;
-				$(".templateScript").each(function () {
-					if (!this.hasAttribute("data-src"))
-						throw new Error("This templateScript is missing a data-src attribute: " + this.outerHTML);
-					var element = $(this);
-					var url = element.attr("data-src");
-					$.ajax({
-						url: url,
-						dataType: "html",
-						type: "GET",
-						timeout: 5000,
-						success: function (response) {
-							$(response).insertAfter(element);
-							$(element).remove();
-							window.JsViewsScriptsLoaded++;
-						}
-					});
-				});
-				var intervalId = setInterval(function () {
-					if (window.JsViewsTotalScripts == window.JsViewsScriptsLoaded) {
-						clearInterval(intervalId);
-						$.holdReady(false);
-						delete window.JsViewsTotalScripts;
-						delete window.JsViewsScriptsLoaded;
-					}
-				}, 1);
-			}
-
-			$(function () {
-				var viewModel = new ErikvO.WinWRS.ViewModel();
-				var template = $.templates("#PageTemplate");
-				template.link("#WinWRS", viewModel);
-			}, false);			
-		</script>
+		<script type="text/javascript" src="Scripts/PageInit.js"></script>
 	</head>
 	<body>
 		<div id="WinWRS"></div>	

@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using ErikvO.WinWRS.Business;
 using ErikvO.WinWRS.Models;
+using ErikvO.WinWRS.Utility.Shutdown;
 
-namespace ErikvO.WinWRS.Business
+namespace ErikvO.WinWRS.ExtensionMethods
 {
 	public static class ComputerExtensions
 	{
@@ -24,14 +26,18 @@ namespace ErikvO.WinWRS.Business
 			client.Send(packet, packet.Length);
 		}
 
-		public static int Reboot(this Computer computer)
+		public static string Reboot(this Computer computer)
 		{
-			return ShutdownHelper.Shutdown(computer.IP, computer.UserName, computer.Password, ShutdownHelper.ShutdownType.ForcedReboot);
+			return new ShutdownFactory()
+				.GetShutdown(computer.ShutdownType)
+				.Shutdown(computer.IP, computer.UserName, computer.GetDecryptedPassword(), ShutdownMethod.ForcedReboot);
 		}
 
-		public static int Shutdown(this Computer computer)
+		public static string Shutdown(this Computer computer)
 		{
-			return ShutdownHelper.Shutdown(computer.IP, computer.UserName, computer.Password, ShutdownHelper.ShutdownType.ForcedShutdown);
+			return new ShutdownFactory()
+				.GetShutdown(computer.ShutdownType)
+				.Shutdown(computer.IP, computer.UserName, computer.GetDecryptedPassword(), ShutdownMethod.ForcedShutdown);
 		}
 
 		public static Computer FillByName(this Computer computer)
