@@ -1,4 +1,5 @@
-﻿$.holdReady(true);
+﻿"use strict";
+$.holdReady(true);
 document.addEventListener("DOMContentLoaded", loadTemplates, false);
 
 function loadTemplates() {

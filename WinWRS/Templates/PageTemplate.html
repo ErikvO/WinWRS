@@ -1,58 +1,56 @@
 ﻿<script type="text/x-jsrender" id="PageTemplate">
-	<div class="Main" data-link="class{merge:Editing toggle='Editing'}">
-		<div class="Computers">
+	<main class="Main" data-link="class{merge:Editing toggle='Editing'}">
+		<section class="Computers">
 			<table>
 				<thead>
 					<tr>
-						<td>Name</td>
-						<td>MAC</td>
-						<td>IP</td>
-						<td>UserName</td>
-						<td>Shutdown type</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<th class="Name">Name</th>
+						<th class="MAC">MAC</th>
+						<th class="IP">IP</th>
+						<th class="UserName">UserName</th>
+						<th class="ShutdownType">Shutdown type</th>
+						<th class="ActionButton Wake"></th>
+						<th class="ActionButton Reboot"></th>
+						<th class="ActionButton Shutdown"></th>
+						<th class="ActionButton Edit"></th>
 					</tr>
 				</thead>
 				<tbody>
 					{^{for Computers}}
 						<tr>
-							<td>{{>Name}}</td>
-							<td>{{>MAC}}</td>
-							<td>{{>IP}}</td>
-							<td>{{>UserName}}</td>
-							<td>{{>~WinWRS.ShutdownType[ShutdownType]}}</td>
-							<td><input type="button" class="Edit" value="Edit" data-link="{on Edit} disabled{:_actionExecuting}" /></td>
-							<td><input type="button" class="Remove" value="Remove" data-link="{on Remove} disabled{:_actionExecuting}" /></td>
-							<td><input type="button" class="Wake" value="Wake" data-link="{on Wake} disabled{:_actionExecuting}" /></td>
-							<td><input type="button" class="Reboot" value="Reboot" data-link="{on Reboot} disabled{:_actionExecuting}" /></td>
-							<td><input type="button" class="Shutdown" value="Shutdown" data-link="{on Shutdown} disabled{:_actionExecuting}" /></td>
+							<td class="Name">{{>Name}}</td>
+							<td class="MAC">{{>MAC}}</td>
+							<td class="IP">{{>IP}}</td>
+							<td class="UserName">{{>UserName}}</td>
+							<td class="ShutdownType">{{>~WinWRS.ShutdownType[ShutdownType]}}</td>
+							<td class="ActionButton Wake"><button class="ImageButton" title="Wake" data-link="{on Wake} disabled{:_actionExecuting}">Wake</button></td>
+							<td class="ActionButton Reboot"><button class="ImageButton" title="Reboot" data-link="{on Reboot} disabled{:_actionExecuting}">Reboot</button></td>
+							<td class="ActionButton Shutdown"><button class="ImageButton" title="Shutdown" data-link="{on Shutdown} disabled{:_actionExecuting}">Shutdown</button></td>
+							<td class="ActionButton Edit"><button class="ImageButton" title="Edit" data-link="{on Edit} disabled{:_actionExecuting}">Edit</button></td>
 						</tr>
 					{{/for}}
 				</tbody>
 			</table>
-			<input type="button" id="AddNew" value="Add" data-link="{on AddNew}" />
-		</div>
-		<div class="EditedComputer">
+			<button class="ImageButton" Id="AddNew" title="Add" data-link="{on AddNew}">Add</button>
+		</section>
+		<section class="EditedComputer">
 			{^{for EditedComputer}}
 				<table>
 					<tbody>			
 						<tr>
 							<td>Name</td>
 							<td><input type="text" id="EditedName" data-link="{:Name:}" /></td>
-							<td><input type="button" id="FillByName" value="Fill by Name" data-link="{on FillByName}" /></td>
+							<td><button id="FillByName" title="Fill by Name" data-link="{on FillByName}">Fill by Name</button></td>
 						</tr>
 						<tr>
 							<td>MAC</td>
 							<td><input type="text" id="EditedMAC" data-link="{:MAC:}" /></td>
-							<td><input type="button" id="FillByMac" value="Fill by MAC" data-link="{on FillByMac}" /></td>
+							<td><button id="FillByMac" title="Fill by MAC" data-link="{on FillByMac}">Fill by MAC</button></td>
 						</tr>
 						<tr>
 							<td>IP</td>
 							<td><input type="text" id="EditedIP" data-link="{:IP:}" /></td>
-							<td><input type="button" id="FillByIp" value="Fill by IP" data-link="{on FillByIp}" /></td>
+							<td><button id="FillByIp" title="Fill by IP" data-link="{on FillByIp}">Fill by IP</button></td>
 						</tr>
 						<tr>
 							<td>UserName</td>
@@ -78,8 +76,9 @@
 					</tbody>
 				</table>
 			{{/for}}
-			<input type="button" id="Save" value="Save" data-link="{on Save}" />
-			<input type="button" id="Cancel" value="Cancel" data-link="{on CancelEdit}" />
-		</div>
-	</div>
+			<button class="Remove" title="Remove" data-link="{on Remove} disabled{:_actionExecuting}">Remove</button>
+			<button id="Save" title="Save" data-link="{on Save}">Save</button>
+			<button id="Cancel" title="Cancel" data-link="{on CancelEdit}">Cancel</button>
+		</section>
+	</main>
 </script>

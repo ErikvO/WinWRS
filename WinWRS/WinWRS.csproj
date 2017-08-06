@@ -57,7 +57,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-	 <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Management" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
@@ -66,14 +66,14 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-	 <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-	 <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -91,6 +91,34 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Images\Add 21x21.png" />
+    <Content Include="Images\android-chrome-192x192.png" />
+    <Content Include="Images\android-chrome-512x512.png" />
+    <Content Include="Images\apple-touch-icon-120x120-precomposed.png" />
+    <Content Include="Images\apple-touch-icon-120x120.png" />
+    <Content Include="Images\apple-touch-icon-152x152-precomposed.png" />
+    <Content Include="Images\apple-touch-icon-152x152.png" />
+    <Content Include="Images\apple-touch-icon-180x180-precomposed.png" />
+    <Content Include="Images\apple-touch-icon-180x180.png" />
+    <Content Include="Images\apple-touch-icon-60x60-precomposed.png" />
+    <Content Include="Images\apple-touch-icon-60x60.png" />
+    <Content Include="Images\apple-touch-icon-76x76-precomposed.png" />
+    <Content Include="Images\apple-touch-icon-76x76.png" />
+    <Content Include="Images\apple-touch-icon-precomposed.png" />
+    <Content Include="Images\apple-touch-icon.png" />
+    <Content Include="Images\browserconfig.xml" />
+    <Content Include="Images\Edit 21x21.png" />
+    <Content Include="Images\favicon-16x16.png" />
+    <Content Include="Images\favicon-194x194.png" />
+    <Content Include="Images\favicon-32x32.png" />
+    <Content Include="Images\favicon.ico" />
+    <Content Include="Images\Main icon - with background.png" />
+    <Content Include="Images\Main icon.png" />
+    <Content Include="Images\mstile-150x150.png" />
+    <Content Include="Images\mstile-70x70.png" />
+    <Content Include="Images\Power 21x21.png" />
+    <Content Include="Images\Reboot 21x21.png" />
+    <Content Include="Images\safari-pinned-tab.svg" />
     <Content Include="index.html" />
     <Content Include="Scripts\3rd Party\jquery-3.2.1.min.js" />
     <Content Include="Scripts\3rd Party\jsviews.min.js" />
@@ -120,6 +148,8 @@
     <Content Include="packages.config" />
     <Content Include="Commandline\ShutdownWindowsSMB.bat" />
     <Content Include="Css\Main.less" />
+    <Content Include="Images\Main icon.pdn" />
+    <Content Include="Images\manifest.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
