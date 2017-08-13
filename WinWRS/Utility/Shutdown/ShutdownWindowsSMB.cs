@@ -39,7 +39,7 @@ namespace ErikvO.WinWRS.Utility.Shutdown
 			}
 
 			String fileName = HttpContext.Current.Server.MapPath("~/Commandline/ShutdownWindowsSMB.bat");
-			String arguments = $"{target} {username} {password} \"{shutdownParameters}\"";
+			String arguments = $"{target} {username} \"{password}\" \"{shutdownParameters}\"";
 
 			return new Commandline().Execute(fileName, arguments);
 		}
