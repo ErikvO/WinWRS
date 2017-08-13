@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ErikvO.WinWRS")]
-[assembly: AssemblyCopyright("Copyright © ErikvO 2017")]
+[assembly: AssemblyCopyright("Copyright Erik van Oorspronk © 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
