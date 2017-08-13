@@ -1,13 +1,15 @@
 ﻿@TransitionSpeed: 0.3s;
 
+@ButtonSize: 34px;
+
 @NameWidth: 150px;
 @MACWidth: 115px;
 @IPWidth: 125px;
 @UserNameWidth: 100px;
 @ShutdownTypeWidth: 120px;
-@ButtonWidth: 28px;
 
-@Name-IP-Buttons-Width: @NameWidth + @IPWidth + (4 * @ButtonWidth);
+@Name-Buttons-Width: @NameWidth + (4 * @ButtonSize);
+@Name-IP-Buttons-Width: @Name-Buttons-Width + @IPWidth;
 @Name-MAC-IP-Buttons-Width: @Name-IP-Buttons-Width + @MACWidth;
 @Name-MAC-IP-UserName-Buttons-Width: @Name-MAC-IP-Buttons-Width + @UserNameWidth;
 @ComputersWidth: @Name-MAC-IP-UserName-Buttons-Width + @ShutdownTypeWidth;
@@ -27,9 +29,10 @@ html, body {
 }
 
 .ImageButton {
-	width: 23px;
-	height: 23px;
+	width: @ButtonSize;
+	height: @ButtonSize;
 	padding: 0;
+	margin: 2px;
 	border-style: none;
 	text-indent: -10000px;
 	border-radius: 4px;
@@ -112,8 +115,8 @@ html, body {
 		}
 
 		.ActionButton {
-			width: @ButtonWidth;
-			min-width: @ButtonWidth;
+			width: @ButtonSize;
+			min-width: @ButtonSize;
 		}
 
 		.Wake {
@@ -159,7 +162,6 @@ html, body {
 }
 
 .Main.Editing {
-	position: relative;
 	left: -@ComputersWidth;
 }
 
@@ -177,11 +179,19 @@ html, body {
 	.ShutdownType {
 		display: none;
 	}
+
+	.Main.Editing {
+		left: -@Name-MAC-IP-UserName-Buttons-Width;
+	}
 }
 
 @media screen and (max-width: @Name-MAC-IP-UserName-Buttons-Width) {
 	.UserName {
 		display: none;
+	}
+
+	.Main.Editing {
+		left: -@Name-MAC-IP-Buttons-Width;
 	}
 }
 
@@ -189,10 +199,18 @@ html, body {
 	.MAC {
 		display: none;
 	}
+
+	.Main.Editing {
+		left: -@Name-IP-Buttons-Width;
+	}
 }
 
 @media screen and (max-width: @Name-IP-Buttons-Width) {
 	.IP {
 		display: none;
+	}
+
+	.Main.Editing {
+		left: -@Name-Buttons-Width;
 	}
 }
