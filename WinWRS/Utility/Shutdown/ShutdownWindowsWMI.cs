@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
 
@@ -22,13 +24,9 @@ namespace ErikvO.WinWRS.Utility.Shutdown
 			{
 				scope.Connect();
 			}
-			catch (COMException e)
+			catch (Exception e)
 			{
-				return e.ErrorCode.ToString();
-			}
-			catch
-			{
-				return "-1";
+				return e.Message;
 			}
 
 			ManagementClass win32_OperatingSystem = new ManagementClass(scope, new ManagementPath(@"Win32_OperatingSystem"), null);
@@ -41,7 +39,11 @@ namespace ErikvO.WinWRS.Utility.Shutdown
 				.First()
 				.InvokeMethod("Win32Shutdown", inParams, null);
 
-			return outParams.Properties["ReturnValue"].Value.ToString();
+			int returnValue = Convert.ToInt32(outParams.Properties["ReturnValue"].Value);
+			if (returnValue == 0)
+				return "";
+			else
+				return new Win32Exception(returnValue).Message;
 		}
 	}
 }
