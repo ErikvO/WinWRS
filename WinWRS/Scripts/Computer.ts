@@ -43,7 +43,22 @@ module ErikvO {
 				$.observable(this).setProperty("ShutdownType", ShutdownType.WindowsSMB);
 			}
 
-			public Insert = (onInserted: () => void): void => {
+			public Edit = (): void => {
+				this._parentViewModel.Edit(this);
+			}
+
+			public CancelEdit = (): void => {
+				this._parentViewModel.StopEdit();
+			}
+
+			public Save = (): void => {
+				if (this.Id > 0)
+					this.Update();
+				else
+					this.Insert();
+			}
+
+			public Insert = (): void => {
 				if (this._canSave) {
 					Ajax.Send({
 						url: "./api/WinWRSApi/Add",
@@ -51,24 +66,20 @@ module ErikvO {
 						success: (data: IComputer) => {
 							this._parentViewModel.Add(new Computer(this._parentViewModel, data));
 							this.Clear();
-							onInserted();
+							this._parentViewModel.Refresh();
 						}
 					});
 				}
 			}
 
-			public Edit = (): void => {
-				this._parentViewModel.Edit(this);
-			}
-
-			public Update = (onUpdated: () => void): void => {
+			public Update = (): void => {
 				$.observable(this).setProperty("_actionExecuting", true);
 				Ajax.Send({
 					url: "./api/WinWRSApi/Update",
 					data: this,
 					success: () => {
 						$.observable(this).setProperty("Password", "");
-						onUpdated();
+						this._parentViewModel.Refresh();
 					},
 					complete: () => {
 						$.observable(this).setProperty("_actionExecuting", false);
@@ -82,8 +93,10 @@ module ErikvO {
 					url: "./api/WinWRSApi/Remove",
 					data: this,
 					success: (deleted: boolean) => {
-						if (deleted)
+						if (deleted) {
 							this._parentViewModel.Remove(this);
+							this._parentViewModel.StopEdit();
+						}
 					},
 					complete: () => {
 						$.observable(this).setProperty("_actionExecuting", false);

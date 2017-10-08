@@ -18,6 +18,7 @@ module ErikvO {
 					url: "./api/WinWRSApi",
 					success: (data: Array<IComputer>) => {
 						$.observable(this.Computers).refresh(data.map((iComputer) => new Computer(this, iComputer)));
+						$.observable(this).setProperty("Editing", false);
 					}
 				});
 			}
@@ -32,18 +33,10 @@ module ErikvO {
 				$.observable(this).setProperty("Editing", true);
 			}
 
-			public CancelEdit = (): void => {
+			public StopEdit = (): void => {
 				$.observable(this).setProperty("Editing", false);
 			}
-
-			public Save = (): void => {
-				if (this.EditedComputer.Id > 0)
-					this.EditedComputer.Update(this.Refresh);
-				else
-					this.EditedComputer.Insert(this.Refresh);
-				$.observable(this).setProperty("Editing", false);
-			}
-
+			
 			public Add(computer: Computer): void {
 				$.observable(this.Computers).insert(computer);
 			}

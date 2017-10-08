@@ -1,6 +1,9 @@
 ﻿@TransitionSpeed: 0.3s;
 
+@WindowMargin: 5px;
+
 @ButtonSize: 34px;
+@ButtonMargin: 2px;
 
 @NameWidth: 150px;
 @MACWidth: 115px;
@@ -8,7 +11,7 @@
 @UserNameWidth: 100px;
 @ShutdownTypeWidth: 120px;
 
-@Name-Buttons-Width: @NameWidth + (4 * @ButtonSize);
+@Name-Buttons-Width: @NameWidth + (4 * @ButtonSize) + (8 * @ButtonMargin);
 @Name-IP-Buttons-Width: @Name-Buttons-Width + @IPWidth;
 @Name-MAC-IP-Buttons-Width: @Name-IP-Buttons-Width + @MACWidth;
 @Name-MAC-IP-UserName-Buttons-Width: @Name-MAC-IP-Buttons-Width + @UserNameWidth;
@@ -32,18 +35,22 @@ html, body {
 	width: @ButtonSize;
 	height: @ButtonSize;
 	padding: 0;
-	margin: 2px;
+	margin: @ButtonMargin;
 	border-style: none;
 	text-indent: -10000px;
 	border-radius: 4px;
 	background-repeat: no-repeat;
 	background-position: center;
+
+	&.Disabled {
+		background-color: gray !important;
+	}
 }
 
 #WinWRS {
 	overflow: hidden;
-	width: 100%;
-	margin: 5px;
+	width: calc(~"100% " - (2 * @WindowMargin));
+	margin: @WindowMargin;
 }
 
 .Main {
@@ -55,7 +62,6 @@ html, body {
 }
 
 .Computers {
-	width: @ComputersWidth;
 	opacity: 1;
 	-webkit-transition: opacity @TransitionSpeed ease-in-out;
 	transition: opacity @TransitionSpeed ease-in-out;
@@ -117,6 +123,7 @@ html, body {
 		.ActionButton {
 			width: @ButtonSize;
 			min-width: @ButtonSize;
+			padding: 0;
 		}
 
 		.Wake {
@@ -159,6 +166,10 @@ html, body {
 	opacity: 0;
 	-webkit-transition: opacity @TransitionSpeed ease-in-out;
 	transition: opacity @TransitionSpeed ease-in-out;
+
+	.FillBy{
+		white-space: nowrap;
+	}
 }
 
 .Main.Editing {
@@ -175,7 +186,8 @@ html, body {
 	}
 }
 
-@media screen and (max-width: @ComputersWidth) {
+@ComputersMaxWidth: (@ComputersWidth + (2 * @WindowMargin));
+@media screen and (max-width: @ComputersMaxWidth) {
 	.ShutdownType {
 		display: none;
 	}
@@ -185,7 +197,8 @@ html, body {
 	}
 }
 
-@media screen and (max-width: @Name-MAC-IP-UserName-Buttons-Width) {
+@Name-MAC-IP-UserName-Buttons-MaxWidth: (@Name-MAC-IP-UserName-Buttons-Width + (2 * @WindowMargin));
+@media screen and (max-width: @Name-MAC-IP-UserName-Buttons-MaxWidth) {
 	.UserName {
 		display: none;
 	}
@@ -195,7 +208,8 @@ html, body {
 	}
 }
 
-@media screen and (max-width: @Name-MAC-IP-Buttons-Width) {
+@Name-MAC-IP-Buttons-MaxWidth: (@Name-MAC-IP-Buttons-Width + (2 * @WindowMargin));
+@media screen and (max-width: @Name-MAC-IP-Buttons-MaxWidth) {
 	.MAC {
 		display: none;
 	}
@@ -205,7 +219,8 @@ html, body {
 	}
 }
 
-@media screen and (max-width: @Name-IP-Buttons-Width) {
+@Name-IP-Buttons-MaxWidth: (@Name-IP-Buttons-Width + (2 * @WindowMargin));
+@media screen and (max-width: @Name-IP-Buttons-MaxWidth) {
 	.IP {
 		display: none;
 	}

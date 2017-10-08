@@ -23,10 +23,10 @@
 							<td class="IP">{{>IP}}</td>
 							<td class="UserName">{{>UserName}}</td>
 							<td class="ShutdownType">{{>~WinWRS.ShutdownType[ShutdownType]}}</td>
-							<td class="ActionButton Wake"><button class="ImageButton" title="Wake" data-link="{on Wake} disabled{:_actionExecuting}">Wake</button></td>
-							<td class="ActionButton Reboot"><button class="ImageButton" title="Reboot" data-link="{on Reboot} disabled{:_actionExecuting}">Reboot</button></td>
-							<td class="ActionButton Shutdown"><button class="ImageButton" title="Shutdown" data-link="{on Shutdown} disabled{:_actionExecuting}">Shutdown</button></td>
-							<td class="ActionButton Edit"><button class="ImageButton" title="Edit" data-link="{on Edit} disabled{:_actionExecuting}">Edit</button></td>
+							<td class="ActionButton Wake"><button class="ImageButton" title="Wake" data-link="{on Wake} disabled{:_actionExecuting} class{merge:_actionExecuting toggle='Disabled'}">Wake</button></td>
+							<td class="ActionButton Reboot"><button class="ImageButton" title="Reboot" data-link="{on Reboot} disabled{:_actionExecuting} class{merge:_actionExecuting toggle='Disabled'}">Reboot</button></td>
+							<td class="ActionButton Shutdown"><button class="ImageButton" title="Shutdown" data-link="{on Shutdown} disabled{:_actionExecuting} class{merge:_actionExecuting toggle='Disabled'}">Shutdown</button></td>
+							<td class="ActionButton Edit"><button class="ImageButton" title="Edit" data-link="{on Edit} disabled{:_actionExecuting} class{merge:_actionExecuting toggle='Disabled'}">Edit</button></td>
 						</tr>
 					{{/for}}
 				</tbody>
@@ -40,17 +40,17 @@
 						<tr>
 							<td>Name</td>
 							<td><input type="text" id="EditedName" data-link="{:Name:}" /></td>
-							<td><button id="FillByName" title="Fill by Name" data-link="{on FillByName}">Fill by Name</button></td>
+							<td><button class="FillBy" id="FillByName" title="Fill by Name" data-link="{on FillByName}">Fill by Name</button></td>
 						</tr>
 						<tr>
 							<td>MAC</td>
 							<td><input type="text" id="EditedMAC" data-link="{:MAC:}" /></td>
-							<td><button id="FillByMac" title="Fill by MAC" data-link="{on FillByMac}">Fill by MAC</button></td>
+							<td><button class="FillBy" id="FillByMac" title="Fill by MAC" data-link="{on FillByMac}">Fill by MAC</button></td>
 						</tr>
 						<tr>
 							<td>IP</td>
 							<td><input type="text" id="EditedIP" data-link="{:IP:}" /></td>
-							<td><button id="FillByIp" title="Fill by IP" data-link="{on FillByIp}">Fill by IP</button></td>
+							<td><button class="FillBy" id="FillByIp" title="Fill by IP" data-link="{on FillByIp}">Fill by IP</button></td>
 						</tr>
 						<tr>
 							<td>UserName</td>
@@ -75,10 +75,10 @@
 						</tr>
 					</tbody>
 				</table>
+				<button class="Remove" title="Remove" data-link="{on Remove} disabled{:_actionExecuting}">Remove</button>
+				<button id="Save" title="Save" data-link="{on Save}">Save</button>
+				<button id="Cancel" title="Cancel" data-link="{on CancelEdit}">Cancel</button>
 			{{/for}}
-			<button class="Remove" title="Remove" data-link="{on Remove} disabled{:_actionExecuting}">Remove</button>
-			<button id="Save" title="Save" data-link="{on Save}">Save</button>
-			<button id="Cancel" title="Cancel" data-link="{on CancelEdit}">Cancel</button>
 		</section>
 	</main>
 </script>
