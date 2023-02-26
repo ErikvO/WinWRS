@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 using ErikvO.WinWRS.ExtensionMethods;
@@ -13,14 +14,13 @@ namespace ErikvO.WinWRS.Controllers
 
 		public IEnumerable<Computer> Get()
 		{
-			IEnumerable<Computer> computers;
 			using (var db = new LiteDatabase(_liteDbPath))
 			{
-				computers = db
+				return db
 					.GetCollection<Computer>("Computers")
-					.FindAll();
+					.FindAll()
+					.ToArray();
 			}
-			return computers;
 		}
 
 		public Computer Add(Computer computer)
@@ -54,7 +54,7 @@ namespace ErikvO.WinWRS.Controllers
 			{
 				var computers = db.GetCollection<Computer>("Computers");
 				computers.EnsureIndex(computer => computer.MAC, true);
-				int deleteCount = computers.Delete(wi => wi.MAC == computerToRemove.MAC);
+				int deleteCount = computers.DeleteMany(wi => wi.MAC == computerToRemove.MAC);
 				return deleteCount > 0;
 			}
 		}

@@ -6,7 +6,9 @@ namespace ErikvO.WinWRS
 	{
 		protected void Application_Start()
 		{
+			GlobalConfiguration.Configure(AppDataFolder.CreateIfNeeded);
 			GlobalConfiguration.Configure(WebApiConfig.Register);
+			GlobalConfiguration.Configuration.EnsureInitialized();
 		}
 	}
 }
